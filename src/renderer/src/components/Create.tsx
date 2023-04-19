@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Button from './Button';
+import Button from "./Button";
+import TextInput from "./TextInput";
 
 interface CreateProps {
   onNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,16 +20,29 @@ function Create({
 }: CreateProps): JSX.Element {
   return (
     <aside className="bg-gray-800 w-2/5 min-w-min p-4 flex flex-col justify-between">
-      <div>
+      <div className="flex flex-col gap-2">
         <h2>Name:</h2>
-        <input type="text" onChange={onNameChange} value={name}></input>
+        <TextInput
+          placeholderText="Name"
+          onChange={onNameChange}
+          name={name}
+        ></TextInput>
         <h2>Password:</h2>
-        <input type="text" onChange={onPasswordChange} value={password}></input>
+        <TextInput
+          placeholderText="Password"
+          onChange={onPasswordChange}
+          name={password}
+        ></TextInput>
         <h2>Password Again:</h2>
-        <input type="text" onChange={onPasswordAgainChange} value={passwordAgain}></input>
+        <TextInput
+          placeholderText="Password Again"
+          onChange={onPasswordAgainChange}
+          name={passwordAgain}
+        ></TextInput>
       </div>
       <div className="flex justify-between">
         <Button text="Save"></Button>
+        <Button text="Delete"></Button>
         <Button text="Back"></Button>
       </div>
     </aside>

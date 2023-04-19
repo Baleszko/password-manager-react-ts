@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import AppList from './components/AppList';
-import Create from './components/Create';
+import { useState } from "react";
+import AppList from "./components/AppList";
+import Create from "./components/Create";
+import AddNewButton from "./components/AddNewButton";
 
 interface ISubmitItem {
   name?: string;
@@ -10,22 +11,28 @@ interface ISubmitItem {
 
 function App(): JSX.Element {
   const [submitItem, setSubmitItem] = useState<ISubmitItem | undefined>();
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const [createMenuIsOpen, setCreateMenuIsOpen] = useState(false);
+  const handleNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setSubmitItem({
       ...submitItem,
       name: event.target.value,
     });
   };
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handlePasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setSubmitItem({
       ...submitItem,
       password: event.target.value,
     });
   };
 
-  const handlePasswordAgainChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handlePasswordAgainChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setSubmitItem({
       ...submitItem,
       passwordAgain: event.target.value,
@@ -33,19 +40,27 @@ function App(): JSX.Element {
   };
 
   const handleCopyClick = (): void => {
-    console.log('Copied');
+    console.log("Copied");
   };
   const handleEditClick = (): void => {
-    console.log('Edited!');
+    console.log("Edited!");
   };
   return (
-    <div className="flex w-full min-h-screen">
-      <AppList onCopyClick={handleCopyClick} onEditClick={handleEditClick}></AppList>
-      <Create
-        onNameChange={handleNameChange}
-        onPasswordChange={handlePasswordChange}
-        onPasswordAgainChange={handlePasswordAgainChange}
-      ></Create>
+    <div className="flex w-full min-h-screen relative">
+      <AppList
+        onCopyClick={handleCopyClick}
+        onEditClick={handleEditClick}
+      ></AppList>
+      <div className="absolute left-5 bottom-5">
+        <AddNewButton></AddNewButton>
+      </div>
+      {createMenuIsOpen ? (
+        <Create
+          onNameChange={handleNameChange}
+          onPasswordChange={handlePasswordChange}
+          onPasswordAgainChange={handlePasswordAgainChange}
+        ></Create>
+      ) : undefined}
     </div>
   );
 }
