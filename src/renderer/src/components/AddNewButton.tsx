@@ -1,10 +1,17 @@
 import PlusSvg from "../assets/plus.svg";
 
-function AddNewButton(): JSX.Element {
+interface AddNewButtonProps {
+  onClick: () => void;
+}
+
+function AddNewButton({ onClick }: AddNewButtonProps): JSX.Element {
   return (
-    <button className=" w-16 h-16 bg-blue-500 rounded-full flex justify-center items-center">
+    <button
+      onClick={onClick}
+      className=" w-16 h-16 bg-blue-600 hover:bg-blue-500 rounded-full flex justify-center items-center"
+    >
       <img
-        className="w-8 h-8 stroke-1 stroke-gray-100 "
+        className="w-10 h-10"
         src={PlusSvg}
         alt="Plus icon, Adding Button"
       ></img>

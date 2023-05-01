@@ -11,7 +11,7 @@ interface ISubmitItem {
 
 function App(): JSX.Element {
   const [submitItem, setSubmitItem] = useState<ISubmitItem | undefined>();
-  const [createMenuIsOpen, setCreateMenuIsOpen] = useState(false);
+  const [createMenuIsOpen, setCreateMenuIsOpen] = useState(true);
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -45,6 +45,13 @@ function App(): JSX.Element {
   const handleEditClick = (): void => {
     console.log("Edited!");
   };
+
+  const handleCloseClick = (): void => {
+    setCreateMenuIsOpen(false);
+  };
+  const handleOpenClick = (): void => {
+    setCreateMenuIsOpen(true);
+  };
   return (
     <div className="flex w-full min-h-screen relative">
       <AppList
@@ -52,10 +59,11 @@ function App(): JSX.Element {
         onEditClick={handleEditClick}
       ></AppList>
       <div className="absolute left-5 bottom-5">
-        <AddNewButton></AddNewButton>
+        <AddNewButton onClick={handleOpenClick}></AddNewButton>
       </div>
       {createMenuIsOpen ? (
         <Create
+          onCloseClick={handleCloseClick}
           onNameChange={handleNameChange}
           onPasswordChange={handlePasswordChange}
           onPasswordAgainChange={handlePasswordAgainChange}

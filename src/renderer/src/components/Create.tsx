@@ -5,6 +5,7 @@ interface CreateProps {
   onNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onPasswordAgainChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCloseClick: () => void;
   name?: string;
   password?: string;
   passwordAgain?: string;
@@ -14,6 +15,7 @@ function Create({
   onNameChange,
   onPasswordChange,
   onPasswordAgainChange,
+  onCloseClick,
   name,
   password,
   passwordAgain,
@@ -40,10 +42,10 @@ function Create({
           name={passwordAgain}
         ></TextInput>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-2">
         <Button text="Save"></Button>
         <Button text="Delete"></Button>
-        <Button text="Back"></Button>
+        <Button onClick={onCloseClick} text="Close"></Button>
       </div>
     </aside>
   );
