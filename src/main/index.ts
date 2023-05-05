@@ -19,6 +19,12 @@ function createWindow(): void {
     },
   });
 
+  //----- MY FUNCTIONS -----//
+
+  mainWindow.webContents.send("readJsonFromFile", readFileFromJson());
+
+  //----- MY FUNCTIONS -----//
+
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
@@ -45,7 +51,9 @@ app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId("com.electron");
 
-  ReadFile();
+  //----- MY FUNCTIONS -----//
+
+  //----- MY FUNCTIONS -----//
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -75,14 +83,22 @@ app.on("window-all-closed", () => {
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 
-async function ReadFile() {
+async function readFileFromJson() {
+  let passwordData: {};
+
   const dir = `${homedir()}\\Dokumentumok\\passFile`;
   const file = `${dir}\\passFile.json`;
-  if (!existsSync(file)) {
+  if (!existsSync(dir)) {
     mkdirSync(dir);
+  }
+  if (!existsSync(file)) {
     writeFile(file, JSON.stringify({}), (err) => {
       if (err) throw err;
     });
   }
-  console.log(file);
+  readFile(file, (err, data) => {
+    if (err) throw err;
+    passwordData = JSON.parse(data.toString());
+    return passwordData;
+  });
 }
