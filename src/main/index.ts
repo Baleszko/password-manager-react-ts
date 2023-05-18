@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { homedir } from "os";
-import { readFile, writeFile, existsSync, mkdirSync } from "fs";
+import { readFileSync, writeFile, existsSync, mkdirSync } from "fs";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
 
@@ -21,7 +21,10 @@ function createWindow(): void {
 
   //----- MY FUNCTIONS -----//
 
-  mainWindow.webContents.send("readJsonFromFile", readFileFromJson());
+  let passwordData = readFileFromJson();
+  console.log(passwordData);
+  let data = 2;
+  mainWindow.webContents.send("readFileFromJson", data);
 
   //----- MY FUNCTIONS -----//
 
@@ -52,7 +55,7 @@ app.whenReady().then(() => {
   electronApp.setAppUserModelId("com.electron");
 
   //----- MY FUNCTIONS -----//
-
+  // ipcMain.handle("readJsonFromFile", readFileFromJson);
   //----- MY FUNCTIONS -----//
 
   // Default open or close DevTools by F12 in development
@@ -82,8 +85,7 @@ app.on("window-all-closed", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-
-async function readFileFromJson() {
+function readFileFromJson() {
   let passwordData: {};
 
   const dir = `${homedir()}\\Dokumentumok\\passFile`;
@@ -96,9 +98,8 @@ async function readFileFromJson() {
       if (err) throw err;
     });
   }
-  readFile(file, (err, data) => {
-    if (err) throw err;
-    passwordData = JSON.parse(data.toString());
-    return passwordData;
-  });
+  let data = readFileSync(file);
+  passwordData = JSON.parse(data.toString());
+  console.log(passwordData);
+  return passwordData;
 }

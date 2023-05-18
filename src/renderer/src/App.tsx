@@ -12,6 +12,14 @@ interface ISubmitItem {
 function App(): JSX.Element {
   const [submitItem, setSubmitItem] = useState<ISubmitItem | undefined>();
   const [createMenuIsOpen, setCreateMenuIsOpen] = useState(true);
+  const [almaa, setAlmaa] = useState(1);
+
+  // (async () => {
+  //   await window.api.readFileFromJson((readFileFromJson) => {
+  //     setAlmaa(readFileFromJson);
+  //   });
+  // })();
+
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -54,6 +62,7 @@ function App(): JSX.Element {
   };
   return (
     <div className="flex w-full min-h-screen relative">
+      <h1> {almaa}</h1>
       <AppList
         onCopyClick={handleCopyClick}
         onEditClick={handleEditClick}
